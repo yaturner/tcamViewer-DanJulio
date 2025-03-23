@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="settings"
+            type="com.danjuliodesigns.tcamViewer.model.Settings" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llCameraSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        tools:context=".ui.settings.SettingsFragment">
+
+        <include
+            android:id="@+id/btnCancelSave"
+            layout="@layout/btn_cancel_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svSettings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            app:layout_constraintBottom_toTopOf="@+id/btnCancelSave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--Scrollview Container-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/btnCancelSave"
+                app:layout_constraintEnd_toEndOf="@+id/glEnd"
+                app:layout_constraintStart_toStartOf="@+id/glStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/groupCameraSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="settingsHeading,switchAGC,emissivityHeading,etEmissivity,btnEmissivityHint,gainHeading,rgGroup,btnNavWiFiHeading,btnNavWiFiSettings"/>
+
+                <!--Heading-->
+                <TextView
+                    android:id="@+id/settingsHeading"
+                    style="@style/SettingsHeading"
+                    android:text="@string/camera_settings"
+                    android:textAllCaps="true" />
+
+                <!--AGC-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchAGC"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:text="@string/agc" />
+
+                <!--Emissivity-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        android:id="@+id/emissivityHeading"
+                        style="@style/SettingsTextStart"
+                        android:text="@string/emissivity" />
+
+                    <EditText
+                        android:id="@+id/etEmissivity"
+                        style="@style/SettingsEditTextEnd"
+                        android:inputType="numberSigned"
+                        android:text="@={settings.emissivity}"
+                        android:textAlignment="textEnd" />
+
+                    <ImageButton
+                        android:id="@+id/btnEmissivityHint"
+                        style="@style/SettingsBtnEnd"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Gain Radio Buttons-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        android:id="@+id/gainHeading"
+                        style="@style/SettingsTextStart"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/gain" />
+
+                    <RadioGroup
+                        android:id="@+id/rgGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbGainAuto"
+                            style="@style/SettingsRadioButton"
+                            android:checked="@={settings.gainAuto}"
+                            android:text="@string/auto" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbGainHigh"
+                            style="@style/SettingsRadioButton"
+                            android:checked="@={settings.gainHigh}"
+                            android:text="@string/high" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbGainLow"
+                            style="@style/SettingsRadioButton"
+                            android:checked="@={settings.gainLow}"
+                            android:text="@string/low" />
+                    </RadioGroup>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Navigate to wifi settings-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        android:id="@+id/btnNavWiFiHeading"
+                        style="@style/SettingsTextStart"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/wifi_network" />
+
+                    <ImageButton
+                        android:id="@+id/btnNavWiFiSettings"
+                        style="@style/SettingsBtnEnd"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Heading-->
+                <TextView
+                    style="@style/SettingsHeading"
+                    android:text="@string/application_settings" />
+
+                <!--Camera IP Address-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/camera_ip_address" />
+
+                    <EditText
+                        android:id="@+id/cameraIPAddress"
+                        style="@style/SettingsEditTextEnd"
+                        android:text="@={settings.cameraAddress}"
+                        android:inputType="textUri|number"
+                        android:textAlignment="textEnd" />
+
+                    <ImageButton
+                        android:id="@+id/btnCameraDiscovery"
+                        style="@style/SettingsBtnEnd"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Export Picture on Save-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchSavePictureOnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:checked="@={settings.exportOnSave}"
+                    android:text="@string/save_picture_on_save" />
+
+                <!--Export MetaData-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchExportMetadata"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:checked="@={settings.exportMetaData}"
+                    android:text="@string/export_metadata" />
+
+                <!--Export Resolution-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/export_resolution" />
+
+                    <Spinner
+                        android:id="@+id/spExportResolution"
+                        style="@style/SettingsTextEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/resolution_strings"
+                        android:selectedItemPosition="@={settings.exportResolution}">
+
+                    </Spinner>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Manual Range-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchManualRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:text="@string/manual_range" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutManualRange"
+                    style="@style/SettingsLayout"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!--Min-->
+                    <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                        <TextView
+                            style="@style/SettingsTextStart"
+                            android:text="@string/min" />
+
+                        <EditText
+                            android:id="@+id/etManualRangeMin"
+                            style="@style/SettingsEditTextEnd"
+                            android:inputType="numberSigned"
+                            android:text="@={settings.manualRangeMin}" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--Max-->
+                    <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                        <TextView
+                            style="@style/SettingsTextStart"
+                            android:text="@string/max" />
+
+                        <EditText
+                            android:id="@+id/etManualRangeMax"
+                            style="@style/SettingsEditTextEnd"
+                            android:inputType="numberSigned"
+                            android:text="@={settings.manualRangeMax}" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:text="@string/palette" />
+
+                    <ImageButton
+                        android:id="@+id/btnPalette"
+                        style="@style/SettingsBtnEnd"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Shutter Sound-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchShutterSound"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:checked="@={settings.shutterSound}"
+                    android:text="@string/shutter_sound" />
+
+                <!--Spotmeter-->
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchSpotMeter"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_weight="1"
+                    android:checked="@={settings.displaySpotmeter}"
+                    android:text="@string/spotmeter" />
+
+                <!--Units-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/units" />
+
+                    <RadioGroup
+                        android:id="@+id/rgUnits"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbUnitsF"
+                            style="@style/SettingsRadioButton"
+                            android:text="&#xb0;F" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/rbUnitsC"
+                            style="@style/SettingsRadioButton"
+                            android:text="&#xb0;C" />
+
+                    </RadioGroup>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Version-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:text="@string/version" />
+
+                    <TextView
+                        android:id="@+id/tvVersion"
+                        style="@style/SettingsTextEnd"
+                        android:text="1.0" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!--Privacy Policy-->
+                <androidx.appcompat.widget.LinearLayoutCompat style="@style/SettingsLayout">
+
+                    <TextView
+                        style="@style/SettingsTextStart"
+                        android:text="@string/privacy_policy" />
+
+                    <ImageButton
+                        android:id="@+id/btn_privacy"
+                        style="@style/SettingsBtnEnd"
+                        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <!--End of scrollable context-->
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
